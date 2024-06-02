@@ -188,8 +188,6 @@ bool isupper() const {
 
   //isnumeric()
 bool isnumeric() const {
-        // Numeric includes digits and numeric characters like fractions, super/subscript, etc.
-        // Here, isdigit is used for simplicity unless full Unicode support is needed.
         for (char c : message) {
             if (!(std::isdigit(static_cast<unsigned char>(c)) || std::isalnum(static_cast<unsigned char>(c)))) {
                 return false;
