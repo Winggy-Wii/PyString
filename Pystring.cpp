@@ -65,6 +65,8 @@ public:
       result += message[i];
     }
     return result;
+
+    
   }
 
 private:
