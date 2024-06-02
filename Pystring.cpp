@@ -74,7 +74,7 @@ public:
 
   std::string capitalize()
   {
-    if ('a' < message[0] < 'z')
+    if ('a' <= message[0] && message[0] <= 'z')
     {
       char a = message[0] - 32;
       message[0] = a;
@@ -99,7 +99,7 @@ private:
 
 int main()
 {
-  PyString obj1 = "hello, world!"; // Object instantiated with a string literal
+  PyString obj1 = "Hello, world!"; // Object instantiated with a string literal
   // obj1.display();                  // Output: Hello, world!
 
   // PyString obj2 = " hihi"; // Object instantiated with a character literal
