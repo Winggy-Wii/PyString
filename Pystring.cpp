@@ -119,6 +119,55 @@ public:
     return message.find(substring);
   }
 
+  //isalnum
+   bool isalnum() const {
+        for (char c : message) {
+            if (!std::isalnum(static_cast<unsigned char>(c))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+  //isalpha
+bool isalpha() const {
+        for (char c : message) {
+            if (!std::isalpha(static_cast<unsigned char>(c))) {
+                return false;
+            }
+        }
+        return true;
+    }
+  //isascii()
+bool isascii() const {
+        for (char c : message) {
+            if (static_cast<unsigned char>(c) > 127) { // ASCII values range from 0 to 127
+                return false;
+            }
+        }
+        return true;
+    }
+  
+  //isdecimal()
+bool isdecimal() const {
+        // Decimal numbers are subset of digits
+        for (char c : message) {
+            if (!std::isdigit(static_cast<unsigned char>(c)) || c < '0' || c > '9') {
+                return false;
+            }
+        }
+        return true;
+    }
+  
+  //isdigit()
+bool isdigit() const {
+        for (char c : message) {
+            if (!std::isdigit(static_cast<unsigned char>(c))) {
+                return false;
+            }
+        }
+        return true;
+    }
 private:
   std::string message;
 };
