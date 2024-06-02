@@ -67,11 +67,13 @@ public:
     return result;
   }
 
+  // len
   int len()
   {
     return message.length();
   }
 
+  // capitalize
   std::string capitalize()
   {
     if ('a' <= message[0] && message[0] <= 'z')
@@ -91,6 +93,41 @@ public:
         throw -1;
       }
     }
+  }
+
+  //count
+  int count(const std::string& substring)
+{
+    if (substring.empty()) return 0; 
+
+    int count = 0;
+    size_t pos = message.find(substring); 
+
+    while (pos != std::string::npos)
+    {
+        count++;
+        pos = message.find(substring, pos + substring.size()); 
+    }
+
+    return count;
+}
+
+  // count
+  int count(const std::string &substring)
+  {
+    if (substring.empty())
+      return 0;
+
+    int count = 0;
+    size_t pos = message.find(substring);
+
+    while (pos != std::string::npos)
+    {
+      count++;
+      pos = message.find(substring, pos + substring.size());
+    }
+
+    return count;
   }
 
 private:
@@ -119,5 +156,6 @@ int main()
   // std::cout << obj1["1:3"];
   // std::cout << obj1.len();
   std::cout << obj1.capitalize();
+  std::cout << obj1.count("Hello") << std::endl;
   return 0;
 }
