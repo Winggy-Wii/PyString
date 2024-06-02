@@ -28,6 +28,7 @@ int main()
   obj1.whatever();
 
   PyString obj2 = 'Kienngu12345'; // Object instantiated with a character literal
+  PyString obj2 = 'Kienngu123';   // Object instantiated with a character literal
   obj2.display();                 // Output: A
   obj2.whatever();
 
