@@ -113,6 +113,12 @@ public:
     return count;
 }
 
+  //find 
+  int find(const std::string& substring)
+  {
+    return message.find(substring);
+  }
+
 private:
   std::string message;
 };
@@ -123,7 +129,7 @@ class len : public PyString
 
 int main()
 {
-  PyString obj1 = "Hello, world!"; // Object instantiated with a string literal
+  PyString obj1 = "Hello, world conkak af!"; // Object instantiated with a string literal
   // obj1.display();                  // Output: Hello, world!
 
   // PyString obj2 = " hihi"; // Object instantiated with a character literal
@@ -138,7 +144,8 @@ int main()
   // obj1.display();
   // std::cout << obj1["1:3"];
   // std::cout << obj1.len();
-  std::cout << obj1.capitalize();
+  std::cout << obj1.capitalize()<<std::endl;
   std::cout << obj1.count("Hello")<<std::endl;
+  std::cout << obj1.find("af!")<<std::endl;
   return 0;
 }
