@@ -27,8 +27,8 @@ int main()
   obj1.display();                  // Output: Hello, world!
   obj1.whatever();
 
-  PyString obj2 = 'ABCDEFG'; // Object instantiated with a character literal
-  obj2.display();            // Output: A
+  PyString obj2 = 'ABCDEFGHHHHH'; // Object instantiated with a character literal
+  obj2.display();                 // Output: A
   obj2.whatever();
 
   return 0;
