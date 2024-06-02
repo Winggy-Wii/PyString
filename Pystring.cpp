@@ -11,11 +11,7 @@ public:
   {
     std::cout << message << std::endl;
   }
-  void whatever()
-  {
-    std::cout << *message.begin() << std::endl;
-    std::cout << *message.end() << std::endl;
-  }
+
   PyString operator+(const PyString &other) const
   {
     return PyString((message + other.message).c_str());
@@ -65,16 +61,15 @@ public:
       result += message[i];
     }
     return result;
-
-
   }
-  //len
+
+  // len
   int len()
   {
     return message.length();
   }
 
-  //capitalize
+  // capitalize
   std::string capitalize()
   {
     if ('a' <= message[0] && message[0] <= 'z')
@@ -96,18 +91,19 @@ public:
     }
   }
 
-  //count
-  int count(const std::string& substring)
-{
-    if (substring.empty()) return 0; 
+  // count
+  int count(const std::string &substring)
+  {
+    if (substring.empty())
+      return 0;
 
     int count = 0;
-    size_t pos = message.find(substring); 
+    size_t pos = message.find(substring);
 
     while (pos != std::string::npos)
     {
-        count++;
-        pos = message.find(substring, pos + substring.size()); 
+      count++;
+      pos = message.find(substring, pos + substring.size());
     }
 
     return count;
@@ -209,6 +205,13 @@ private:
 
 class len : public PyString
 {
+private:
+  std::string message;
+
+public:
+  len(std::string n) : message(n){"1"};
+
+  int operator()(std::string message)
 };
 
 int main()
