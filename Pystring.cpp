@@ -69,13 +69,39 @@ public:
     
   }
 
+  int len()
+  {
+    return message.length();
+  }
+
+  std::string capitalize()
+  {
+    if ('a' <= message[0] && message[0] <= 'z')
+    {
+      char a = message[0] - 32;
+      message[0] = a;
+      return message;
+    }
+    else
+    {
+      if ('A' < message[0] < 'Z')
+      {
+        return message;
+      }
+      else
+      {
+        throw -1;
+      }
+    }
+  }
+
 private:
   std::string message;
 };
 
 int main()
 {
-  // PyString obj1 = "Hello, world!"; // Object instantiated with a string literal
+  PyString obj1 = "Hello, world!"; // Object instantiated with a string literal
   // obj1.display();                  // Output: Hello, world!
 
   // PyString obj2 = " hihi"; // Object instantiated with a character literal
@@ -86,11 +112,10 @@ int main()
   // obj3 += PyString("KKK");
   // obj3.display();
 
-  PyString obj1 = "heloo";
-
-  obj1[4] = 'P';
-  obj1.display();
-  std::cout << obj1["1:3"];
-
+  // obj1[4] = 'P';
+  // obj1.display();
+  // std::cout << obj1["1:3"];
+  // std::cout << obj1.len();
+  std::cout << obj1.capitalize();
   return 0;
 }
