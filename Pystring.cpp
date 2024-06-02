@@ -65,8 +65,6 @@ public:
       result += message[i];
     }
     return result;
-
-    
   }
 
   int len()
