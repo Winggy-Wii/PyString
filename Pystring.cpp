@@ -117,6 +117,10 @@ private:
   std::string message;
 };
 
+class len : public PyString
+{
+};
+
 int main()
 {
   PyString obj1 = "Hello, world!"; // Object instantiated with a string literal
