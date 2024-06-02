@@ -207,9 +207,9 @@ private:
   std::string message;
 
 public:
-  len(std::string n) : message(n){"1"};
+  
 
-  int operator()(std::string message)
+  int operator()(std::string message);
 };
 
 int main()
@@ -232,5 +232,19 @@ int main()
   std::cout << obj1.capitalize()<<std::endl;
   std::cout << obj1.count("Hello")<<std::endl;
   std::cout << obj1.find("af!")<<std::endl;
+
+  PyString alpha("abcdef");
+  PyString upperAlpha("ABCDEF");
+  PyString mixedCase("AbCdEf");
+  PyString numeric("123456");
+  PyString mixed("Abc123");
+  PyString specialChars("abc123$%^");
+  PyString nonAscii("Hello, 世界");
+
+  std::cout << "Testing isalpha:" << std::endl;
+  std::cout << "alpha: " << alpha.isalpha() << std::endl;
+  std::cout << "upperAlpha: " << upperAlpha.isalpha() << std::endl;
+  std::cout << "mixedCase: " << mixedCase.isalpha() << std::endl;
+  std::cout << "numeric: " << numeric.isalpha() << std::endl;
   return 0;
 }
