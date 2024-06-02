@@ -4,7 +4,6 @@
 class PyString
 {
 public:
-
   PyString(const char *message) : message(message) {}
   PyString(char character) : message(1, character) {}
 
@@ -47,6 +46,27 @@ public:
     return message[index];
   }
 
+  // Overload [] operator to perform slicing
+  std::string operator[](const std::string &slice)
+  {
+    int start = 0, stop = message.length(), step = 1;
+
+    // Parse slice string
+    size_t colonPos = slice.find(':');
+    if (colonPos != std::string::npos)
+    {
+      start = slice.substr(0, colonPos).empty() ? 0 : std::stoi(slice.substr(0, colonPos));
+      stop = slice.substr(colonPos + 1).empty() ? stop : std::stoi(slice.substr(colonPos + 1));
+    }
+
+    std::string result;
+    for (int i = start; i < stop; i += step)
+    {
+      result += message[i];
+    }
+    return result;
+  }
+
 private:
   std::string message;
 };
@@ -68,6 +88,7 @@ int main()
 
   obj1[4] = 'P';
   obj1.display();
+  std::cout << obj1["1:3"];
 
   return 0;
 }
