@@ -1,8 +1,12 @@
 #include <iostream>
 #include <string>
+#include <algorithm>
 
 class PyString
 {
+private:
+  std::string message;
+
 public:
   PyString(const char *message) : message(message) {}
   PyString(char character) : message(1, character) {}
@@ -15,6 +19,26 @@ public:
   PyString operator+(const PyString &other) const
   {
     return PyString((message + other.message).c_str());
+  }
+  bool operator>(const PyString &other) const
+  {
+    return (message > other.message);
+  }
+  bool operator<(const PyString &other) const
+  {
+    return (message < other.message);
+  }
+  bool operator==(const PyString &other) const
+  {
+    return (message == other.message);
+  }
+  bool operator>=(const PyString &other) const
+  {
+    return (message >= other.message);
+  }
+  bool operator<=(const PyString &other) const
+  {
+    return (message <= other.message);
   }
   PyString &operator+=(const PyString &other)
   {
@@ -63,6 +87,16 @@ public:
     return result;
   }
 
+  const char *begin() const
+  {
+    return message.data();
+  }
+
+  // Iterator for range-based for loops (end)
+  const char *end() const
+  {
+    return message.data() + message.size();
+  }
   // len
   int len()
   {
@@ -72,25 +106,38 @@ public:
   // capitalize
   std::string capitalize()
   {
-    if ('a' <= message[0] && message[0] <= 'z')
+    if (!message.empty() && std::isalpha(static_cast<unsigned char>(message[0])))
     {
-      char a = message[0] - 32;
-      message[0] = a;
-      return message;
+      message[0] = std::toupper(static_cast<unsigned char>(message[0]));
     }
-    else
-    {
-      if ('A' < message[0] < 'Z')
-      {
-        return message;
-      }
-      else
-      {
-        throw -1;
-      }
-    }
+    return message;
   }
 
+  std::string upper()
+  {
+    std::string temp;
+    if (!message.empty())
+    {
+      for (unsigned char c : message)
+      {
+        temp += std::toupper(c);
+      }
+    }
+    return temp;
+  }
+
+  std::string lower()
+  {
+    std::string temp;
+    if (!message.empty())
+    {
+      for (unsigned char c : message)
+      {
+        temp += std::tolower(c);
+      }
+    }
+    return temp;
+  }
   // count
   int count(const std::string &substring)
   {
@@ -107,97 +154,262 @@ public:
     }
 
     return count;
-}
-
-  //find 
-  int find(const std::string& substring)
-  {
-    return message.find(substring);
   }
 
-  //isalnum
-   bool isalnum() const {
-        for (char c : message) {
-            if (!std::isalnum(static_cast<unsigned char>(c))) {
-                return false;
-            }
+  void pop(size_t index)
+  {
+    if (index < message.size())
+    {
+      message.erase(index, 1);
+    }
+    else
+    {
+      std::cerr << "Index out of range." << std::endl;
+    }
+  }
+
+  void pop()
+  {
+    if (!message.empty())
+    {
+      message.erase(message.end() - 1);
+    }
+  }
+
+  // find
+  int find(const std::string &substring)
+  {
+    size_t index = message.find(substring);
+    if (index == std::string::npos)
+    {
+      throw std::out_of_range("Substring not found");
+    }
+    return static_cast<int>(index);
+  }
+
+  bool isLowercase()
+  {
+    for (char c : message)
+    {
+      if (!(c >= 'a' && c <= 'z'))
+      {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  bool isUppercase()
+  {
+    for (char c : message)
+    {
+      if (!(c >= 'A' && c <= 'Z'))
+      {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  // isalnum
+  bool isalnum() const
+  {
+    for (char c : message)
+    {
+      if (!std::isalnum(static_cast<unsigned char>(c)))
+      {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  // isalpha
+  bool isalpha() const
+  {
+    for (char c : message)
+    {
+      if (!std::isalpha(static_cast<unsigned char>(c)))
+      {
+        return false;
+      }
+    }
+    return true;
+  }
+  // isascii()
+  bool isAscii() const
+  {
+    for (char c : message)
+    {
+      if (static_cast<unsigned char>(c) > 127)
+      { // ASCII values range from 0 to 127
+        return false;
+      }
+    }
+    return true;
+  }
+  // isdecimal()
+  bool isdecimal() const
+  {
+    // Decimal numbers are subset of digits
+    for (char c : message)
+    {
+      if (!std::isdigit(static_cast<unsigned char>(c)) || c < '0' || c > '9')
+      {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  bool isFloat()
+  {
+    bool decimalPointSeen = false;
+    bool hasDigit = false;
+
+    for (char c : message)
+    {
+      if (c >= '0' && c <= '9')
+      {
+        hasDigit = true;
+      }
+      else if (c == '.')
+      {
+        if (decimalPointSeen)
+        {
+          return false; // More than one decimal point
         }
-        return true;
+        decimalPointSeen = true;
+      }
+      else if ((c == '+' || c == '-') && !hasDigit)
+      {
+        // Allow signs only before digits
+      }
+      else
+      {
+        return false; // Invalid character
+      }
     }
 
-  //isalpha
-bool isalpha() const {
-        for (char c : message) {
-            if (!std::isalpha(static_cast<unsigned char>(c))) {
-                return false;
-            }
-        }
-        return true;
+    return hasDigit; // Must have at least one digit
+  }
+
+  // isdigit()
+  bool isdigit() const
+  {
+    for (char c : message)
+    {
+      if (!std::isdigit(static_cast<unsigned char>(c)))
+      {
+        return false;
+      }
     }
-  //isascii()
-bool isascii() const {
-        for (char c : message) {
-            if (static_cast<unsigned char>(c) > 127) { // ASCII values range from 0 to 127
-                return false;
-            }
-        }
-        return true;
+    return true;
+  }
+
+  void reverse()
+  {
+    int left = 0;
+    int right = message.length() - 1;
+
+    while (left < right)
+    {
+      std::swap(message[left], message[right]);
+      left++;
+      right--;
     }
-  
-  //isdecimal()
-bool isdecimal() const {
-        // Decimal numbers are subset of digits
-        for (char c : message) {
-            if (!std::isdigit(static_cast<unsigned char>(c)) || c < '0' || c > '9') {
-                return false;
-            }
-        }
-        return true;
-    }
-  
-  //isdigit()
-bool isdigit() const {
-        for (char c : message) {
-            if (!std::isdigit(static_cast<unsigned char>(c))) {
-                return false;
-            }
-        }
-        return true;
-    }
-private:
-  std::string message;
+  }
+
+  std::string get_string()
+  {
+    return message;
+  }
+
+  std::string sort()
+  {
+    std::sort(message.begin(), message.end());
+    std::string temp = message;
+    return temp;
+  }
 };
 
-class len : public PyString
+int len(PyString a)
 {
-private:
-  std::string message;
+  return a.get_string().length();
+}
 
-public:
-  len(std::string n) : message(n){"1"};
+std::string sorted(PyString a)
+{
+  std::string b = a.get_string();
+  std::sort(b.begin(), b.end());
+  std::string temp = b;
+  return temp;
+}
 
-  int operator()(std::string message)
-};
+int Int(PyString a)
+{
+  if (a.isdecimal())
+  {
+    return std::stoi(a.get_string());
+  }
+  else
+  {
+    throw "The string is not an integer";
+  }
+}
+
+float Float(PyString a)
+{
+
+  if (a.isFloat())
+  {
+    return std::stof(a.get_string());
+  }
+  else
+  {
+    throw "The string is not a float";
+  }
+}
 
 int main()
 {
-  PyString obj1 = "Hello, world conkak af!"; // Object instantiated with a string literal
+  PyString obj1 = "Hello, world!"; // Object instantiated with a string literal
   // obj1.display();                  // Output: Hello, world!
+  PyString obj3 = "189056";
+  PyString obj4 = "-3.14";
 
-  // PyString obj2 = " hihi"; // Object instantiated with a character literal
+  std::cout << obj4.isdecimal() << std::endl;
 
-  // obj2.display(); // Output: A
+  PyString obj2 = " hihi"; // Object instantiated with a character literal
+  obj2.display();          // Output: A
+  PyString obj3 = obj1 + obj2;
+  obj3 += PyString("KKK");
+  obj3.display();
+  obj1[4] = 'P';
+  obj1.display();
+  std::cout << obj1["1:3"];
+  std::cout << obj1.len();
+  std::cout << obj1.len() << std::endl;
+  std::cout << obj1.upper() << std::endl;
+  std::cout << obj1.capitalize() << std::endl;
+  std::cout << obj1.count("Hello") << std::endl;
+  std::cout << obj1.find("H") << std::endl;
+  std::cout << obj1.isdigit() << std::endl;
+  std::cout << len(obj1) << std::endl;
+  std::cout << sorted(obj3) << std::endl; // Will not change original string
+  std::cout << obj3.sort() << std::endl;  // Will change original string
 
-  // PyString obj3 = obj1 + obj2;
-  // obj3 += PyString("KKK");
-  // obj3.display();
-
-  // obj1[4] = 'P';
-  // obj1.display();
-  // std::cout << obj1["1:3"];
-  // std::cout << obj1.len();
-  std::cout << obj1.capitalize()<<std::endl;
-  std::cout << obj1.count("Hello")<<std::endl;
-  std::cout << obj1.find("af!")<<std::endl;
+  std::cout << Int(obj3) << std::endl;
+  std::cout << Float(obj4);
+  std::string cc = "A";
+  std::string dd = "B";
+  bool u = cc > dd;
+  std::cout << u;
+  bool a = obj1 > obj3;
+  std::cout << a;
+  for (auto c : obj1)
+  {
+    std::cout << c;
+  }
   return 0;
 }
