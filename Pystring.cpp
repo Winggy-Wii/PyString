@@ -187,43 +187,6 @@ public:
     return static_cast<int>(index);
   }
 
-  bool isLowercase()
-  {
-    for (char c : message)
-    {
-      if (!(c >= 'a' && c <= 'z'))
-      {
-        return false;
-      }
-    }
-    return true;
-  }
-
-  bool isUppercase()
-  {
-    for (char c : message)
-    {
-      if (!(c >= 'A' && c <= 'Z'))
-      {
-        return false;
-      }
-    }
-    return true;
-  }
-
-  // isalnum
-  bool isalnum() const
-  {
-    for (char c : message)
-    {
-      if (!std::isalnum(static_cast<unsigned char>(c)))
-      {
-        return false;
-      }
-    }
-    return true;
-  }
-
   // isalpha
   bool isalpha() const
   {
@@ -248,13 +211,77 @@ public:
     }
     return true;
   }
-  // isdecimal()
+
+  // isdigit()
+  bool isdigit() const
+  {
+    for (char c : message)
+    {
+      if (!std::isdigit(static_cast<unsigned char>(c)))
+      {
+        return false;
+      }
+    }
+    return true;
+  }
+
   bool isdecimal() const
   {
-    // Decimal numbers are subset of digits
     for (char c : message)
     {
       if (!std::isdigit(static_cast<unsigned char>(c)) || c < '0' || c > '9')
+      {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  // islower()
+  bool islower() const
+  {
+    for (char c : message)
+    {
+      if (!std::islower(static_cast<unsigned char>(c)))
+      {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  // isupper()
+  bool isupper() const
+  {
+    for (char c : message)
+    {
+      if (!std::isupper(static_cast<unsigned char>(c)))
+      {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  // isnumeric()
+  bool isnumeric() const
+  {
+    for (char c : message)
+    {
+      if (!(std::isdigit(static_cast<unsigned char>(c)) || std::isalnum(static_cast<unsigned char>(c))))
+      {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  // isalnum
+  bool isalnum() const
+  {
+    for (char c : message)
+    {
+      if (!std::isalnum(static_cast<unsigned char>(c)))
       {
         return false;
       }
@@ -292,19 +319,6 @@ public:
     }
 
     return hasDigit; // Must have at least one digit
-  }
-
-  // isdigit()
-  bool isdigit() const
-  {
-    for (char c : message)
-    {
-      if (!std::isdigit(static_cast<unsigned char>(c)))
-      {
-        return false;
-      }
-    }
-    return true;
   }
 
   void reverse()
@@ -375,41 +389,21 @@ int main()
 {
   PyString obj1 = "Hello, world!"; // Object instantiated with a string literal
   // obj1.display();                  // Output: Hello, world!
-  PyString obj3 = "189056";
-  PyString obj4 = "-3.14";
 
-  std::cout << obj4.isdecimal() << std::endl;
+  // PyString obj2 = " hihi"; // Object instantiated with a character literal
 
-  PyString obj2 = " hihi"; // Object instantiated with a character literal
-  obj2.display();          // Output: A
-  PyString obj3 = obj1 + obj2;
-  obj3 += PyString("KKK");
-  obj3.display();
-  obj1[4] = 'P';
-  obj1.display();
-  std::cout << obj1["1:3"];
-  std::cout << obj1.len();
-  std::cout << obj1.len() << std::endl;
-  std::cout << obj1.upper() << std::endl;
+  // obj2.display(); // Output: A
+
+  // PyString obj3 = obj1 + obj2;
+  // obj3 += PyString("KKK");
+  // obj3.display();
+
+  // obj1[4] = 'P';
+  // obj1.display();
+  // std::cout << obj1["1:3"];
+  // std::cout << obj1.len();
   std::cout << obj1.capitalize() << std::endl;
   std::cout << obj1.count("Hello") << std::endl;
-  std::cout << obj1.find("H") << std::endl;
-  std::cout << obj1.isdigit() << std::endl;
-  std::cout << len(obj1) << std::endl;
-  std::cout << sorted(obj3) << std::endl; // Will not change original string
-  std::cout << obj3.sort() << std::endl;  // Will change original string
-
-  std::cout << Int(obj3) << std::endl;
-  std::cout << Float(obj4);
-  std::string cc = "A";
-  std::string dd = "B";
-  bool u = cc > dd;
-  std::cout << u;
-  bool a = obj1 > obj3;
-  std::cout << a;
-  for (auto c : obj1)
-  {
-    std::cout << c;
-  }
+  std::cout << obj1.find("af!") << std::endl;
   return 0;
 }
