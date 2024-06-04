@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
 #include <algorithm>
+#include <vector>
+#include <sstream>
 
 class PyString
 {
@@ -289,6 +291,83 @@ public:
     return true;
   }
 
+  // append
+void append(const PyString &other) {
+  message += other.message;
+}
+
+  //title
+std::string title() {
+    std::string titled;
+    bool capitalizeNext = true;  // Indicates if the next character should be capitalized
+
+    for (char c : message) {
+        if (std::isalpha(static_cast<unsigned char>(c))) {
+            if (capitalizeNext) {
+                titled += std::toupper(static_cast<unsigned char>(c));
+                capitalizeNext = false;
+            } else {
+                titled += std::tolower(static_cast<unsigned char>(c));
+            }
+        } else {
+            titled += c;
+            capitalizeNext = true;
+        }
+    }
+
+    return titled;
+}
+
+  //strip
+void strip() {
+    auto start = std::find_if_not(message.begin(), message.end(), ::isspace);
+    auto end = std::find_if_not(message.rbegin(), message.rend(), ::isspace).base();
+    if (start < end) {
+        message = std::string(start, end);
+    } else {
+        message.clear();  // the string is all whitespace
+    }
+}
+
+// split function
+std::vector<std::string> split(const std::string& delimiter = " ") {
+    std::vector<std::string> tokens;
+    std::string token;
+    size_t start = 0, end;
+
+    if (delimiter.empty()) { // Handle edge case where delimiter is empty
+        tokens.push_back(message);
+        return tokens;
+    }
+
+    while ((end = message.find(delimiter, start)) != std::string::npos) {
+        token = message.substr(start, end - start);
+        if (!token.empty()) { // Avoid adding empty strings
+            tokens.push_back(token);
+        }
+        start = end + delimiter.length();
+    }
+    token = message.substr(start);
+    if (!token.empty()) {
+        tokens.push_back(token);
+    }
+    return tokens;
+}
+
+// replace function
+std::string replace(const std::string& old_substr, const std::string& new_substr) {
+    std::string result = message;
+    size_t pos = 0;
+
+    while ((pos = result.find(old_substr, pos)) != std::string::npos) {
+        result.replace(pos, old_substr.length(), new_substr);
+        pos += new_substr.length();
+    }
+    return result;
+}
+
+
+
   bool isFloat()
   {
     bool decimalPointSeen = false;
@@ -387,7 +466,7 @@ float Float(PyString a)
 
 int main()
 {
-  PyString obj1 = "Hello, world!"; // Object instantiated with a string literal
+  //PyString obj1 = "Hello, world!"; // Object instantiated with a string literal
   // obj1.display();                  // Output: Hello, world!
 
   // PyString obj2 = " hihi"; // Object instantiated with a character literal
@@ -402,6 +481,30 @@ int main()
   // obj1.display();
   // std::cout << obj1["1:3"];
   // std::cout << obj1.len();
+
+  // Create a PyString object with a sample string
+    PyString obj1("Hello, world! Welcome to C++ programming.");
+
+    // Test the split function
+    std::vector<std::string> words = obj1.split(); // Default is to split by space
+    std::cout << "Split by spaces:" << std::endl;
+    for (const auto& word : words) {
+        std::cout << word << std::endl;
+    }
+
+    // Test the split function with a comma delimiter
+    std::vector<std::string> parts = obj1.split(",");
+    std::cout << "Split by comma:" << std::endl;
+    for (const auto& part : parts) {
+        std::cout << part << std::endl;
+    }
+
+    // Test the replace function
+    PyString obj2("This is a test. This is only a test.");
+    std::string replaced = obj2.replace("test", "demo");
+    std::cout << "Original string: " << obj2.get_string() << std::endl;
+    std::cout << "Replaced string: " << replaced << std::endl;
+    
   std::cout << obj1.capitalize() << std::endl;
   std::cout << obj1.count("Hello") << std::endl;
   std::cout << obj1.find("af!") << std::endl;
