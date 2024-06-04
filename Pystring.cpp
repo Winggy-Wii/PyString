@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <algorithm>
-
+#include "PyString.h"
 class PyString
 {
 private:
