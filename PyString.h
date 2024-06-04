@@ -1,6 +1,11 @@
 #ifndef PYSTRING_H
 #define PYSTRING_H
+
+#include <iostream>
 #include <string>
+#include <algorithm>
+#include <vector>
+#include <sstream>
 
 class PyString
 {
@@ -43,6 +48,11 @@ public:
   bool isupper() const;
   std::string get_string();
   std::string sort();
+  std::string replace(const std::string &old_substr, const std::string &new_substr);
+  std::vector<std::string> split(const std::string &delimiter = " ");
+  std::string title();
+  void strip();
+  void append(const PyString &other);
 };
 int len(PyString a);
 std::string sorted(PyString a);
