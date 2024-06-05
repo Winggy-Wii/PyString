@@ -1,6 +1,26 @@
 #include "PyString.h"
 
 int main() {
+      // Create an instance of PyString
+    PyString s1("hello");
+    PyString s2("world");
+    PyString s3("12345");
+    PyString s4("123.456");
+    PyString s5("HELLO");
+
+     // Test operator+ and operator+=
+    auto concatenated = s1 + s2;
+    concatenated.display();
+    s1 += s2;
+    s1.display();
+
+      // Test relational operators
+    std::cout << "s1 > s2: " << (s1 > s2) << std::endl;
+    std::cout << "s1 < s2: " << (s1 < s2) << std::endl;
+    std::cout << "s1 == s2: " << (s1 == s2) << std::endl;
+    std::cout << "s1 >= s2: " << (s1 >= s2) << std::endl;
+    std::cout << "s1 <= s2: " << (s1 <= s2) << std::endl;
+
     // Create an instance of PyString and test the strip() function
     PyString str1("   Hello World!   ");
     auto res = str1.strip();
@@ -15,29 +35,10 @@ int main() {
     }
     std::cout << std::endl;
 
-     // Create an instance of PyString
-    PyString s1("hello");
-    PyString s2("world");
-    PyString s3("12345");
-    PyString s4("123.456");
-    PyString s5("HELLO");
-
+   
     // Test display
     std::cout << "Display: ";
     s1.display();
-
-    // Test operator+ and operator+=
-    auto concatenated = s1 + s2;
-    concatenated.display();
-    s1 += s2;
-    s1.display();
-
-    // Test relational operators
-    std::cout << "s1 > s2: " << (s1 > s2) << std::endl;
-    std::cout << "s1 < s2: " << (s1 < s2) << std::endl;
-    std::cout << "s1 == s2: " << (s1 == s2) << std::endl;
-    std::cout << "s1 >= s2: " << (s1 >= s2) << std::endl;
-    std::cout << "s1 <= s2: " << (s1 <= s2) << std::endl;
 
     // Test subscript operator for access
     std::cout << "s1[0]: " << s1[0] << std::endl;
