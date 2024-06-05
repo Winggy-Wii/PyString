@@ -322,7 +322,7 @@ std::string PyString::title()
 }
 
 // strip
-void PyString::strip()
+std::string PyString::strip()
 {
   auto start = std::find_if_not(message.begin(), message.end(), ::isspace);
   auto end = std::find_if_not(message.rbegin(), message.rend(), ::isspace).base();
@@ -334,6 +334,7 @@ void PyString::strip()
   {
     message.clear(); // the string is all whitespace
   }
+  return message;
 }
 
 // split function

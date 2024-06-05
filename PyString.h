@@ -51,7 +51,7 @@ public:
   std::string replace(const std::string &old_substr, const std::string &new_substr);
   std::vector<std::string> split(const std::string &delimiter = " ");
   std::string title();
-  void strip();
+  std::string strip();
   void append(const PyString &other);
 };
 int len(PyString a);

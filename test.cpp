@@ -17,5 +17,9 @@ int main()
     std::cout << "Objects are not equal." << std::endl;
   }
   std::cout << obj1.get_string() << std::endl;
+  PyString obj6 = "    mm   ";
+  std::cout << obj6.strip();
+  obj6.append(obj1);
+  std::cout << obj6.get_string();
   return 0;
 }
