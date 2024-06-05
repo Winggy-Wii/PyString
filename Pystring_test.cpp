@@ -1,20 +1,23 @@
 #include "PyString.h"
 
-int main() {
-      // Create an instance of PyString
+using namespace Ps;
+
+int main()
+{
+    // Create an instance of PyString
     PyString s1("hello");
     PyString s2("world");
     PyString s3("12345");
     PyString s4("123.456");
     PyString s5("HELLO");
 
-     // Test operator+ and operator+=
+    // Test operator+ and operator+=
     auto concatenated = s1 + s2;
     concatenated.display();
     s1 += s2;
     s1.display();
 
-      // Test relational operators
+    // Test relational operators
     std::cout << "s1 > s2: " << (s1 > s2) << std::endl;
     std::cout << "s1 < s2: " << (s1 < s2) << std::endl;
     std::cout << "s1 == s2: " << (s1 == s2) << std::endl;
@@ -30,12 +33,12 @@ int main() {
     PyString str2("one,two,three");
     auto result = str2.split(",");
     std::cout << "Result after split: ";
-    for (const auto& s : result) {
+    for (const auto &s : result)
+    {
         std::cout << "'" << s << "' ";
     }
     std::cout << std::endl;
 
-   
     // Test display
     std::cout << "Display: ";
     s1.display();
@@ -58,7 +61,8 @@ int main() {
     std::cout << "Strip: '" << s7.strip() << "'" << std::endl;
     auto parts = s6.split(" ");
     std::cout << "Split: ";
-    for (const auto& part : parts) {
+    for (const auto &part : parts)
+    {
         std::cout << "'" << part << "' ";
     }
     std::cout << std::endl;
@@ -95,18 +99,30 @@ int main() {
     std::cout << "Sorted s1: " << sorted(s1) << std::endl;
 
     // Test converting to int and float
-    try {
+    try
+    {
         std::cout << "Convert to int: " << Int(s3) << std::endl;
-    } catch (const char* msg) {
+    }
+    catch (const char *msg)
+    {
         std::cerr << msg << std::endl;
     }
 
-    try {
+    try
+    {
         std::cout << "Convert to float: " << Float(s4) << std::endl;
-    } catch (const char* msg) {
+    }
+    catch (const char *msg)
+    {
         std::cerr << msg << std::endl;
     }
 
+    string obj9 = "HIHI";
+    std::cout << obj9["1:3"];
+    string a;
+    string b = "2";
+    a = "3";
+    std::cout << a();
+    
     return 0;
-
 }
