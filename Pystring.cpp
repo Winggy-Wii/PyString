@@ -12,6 +12,11 @@ void PyString::display()
   std::cout << message << std::endl;
 }
 
+std::string PyString::operator()() const
+{
+  return message;
+}
+
 PyString PyString::operator+(const PyString &other) const
 {
   return PyString((message + other.message).c_str());
