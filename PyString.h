@@ -13,6 +13,7 @@ private:
   std::string message;
 
 public:
+  PyString();
   PyString(const char *message);
   PyString(char character);
   void display();
@@ -65,6 +66,7 @@ namespace Ps
   class string : public PyString
   {
   public:
+    string(){};
     string(const char *message) : PyString(message)
     {
     }

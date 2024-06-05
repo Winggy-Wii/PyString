@@ -1,5 +1,7 @@
 #include "PyString.h"
 
+PyString::PyString(){};
+
 PyString::PyString(const char *message)
 {
   this->message = message;
