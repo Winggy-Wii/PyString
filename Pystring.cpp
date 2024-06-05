@@ -474,3 +474,21 @@ float Float(PyString a)
     throw "The string is not a float";
   }
 }
+
+int main() {
+    // Create an instance of PyString and test the strip() function
+    PyString str1("   Hello World!   ");
+    auto res = str1.strip();
+    std::cout << res << std::endl;
+
+    // Test the split() function
+    PyString str2("one,two,three");
+    auto result = str2.split(",");
+    std::cout << "Result after split: ";
+    for (const auto& s : result) {
+        std::cout << "'" << s << "' ";
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
