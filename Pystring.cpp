@@ -483,6 +483,7 @@ float Float(PyString a)
   }
 }
 
+
 int main()
 {
   // Create an instance of PyString and test the strip() function
