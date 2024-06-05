@@ -18,6 +18,7 @@ public:
   void display();
   PyString operator+(const PyString &other) const;
   bool operator==(const PyString &other) const;
+  std::string operator()() const;
   bool operator>(const PyString &other) const;
   bool operator<(const PyString &other) const;
   bool operator<=(const PyString &other) const;
@@ -58,4 +59,15 @@ int len(PyString a);
 std::string sorted(PyString a);
 float Float(PyString a);
 int Int(PyString a);
+
+namespace Ps
+{
+  class string : public PyString
+  {
+  public:
+    string(const char *message) : PyString(message)
+    {
+    }
+  };
+}
 #endif
