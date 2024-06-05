@@ -118,11 +118,11 @@ int main()
     }
 
     string obj9 = "HIHI";
-    std::cout << obj9["1:3"];
+    std::cout << obj9["1:3"]<<std::endl;
     string a;
     string b = "2";
     a = "3";
-    std::cout << a();
+    std::cout << a()<<std::endl;
     
     return 0;
 }
